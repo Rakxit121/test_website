@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const productController = require('../controllers/productControllers');
 const authGuard = require('../middleware/authGuard');
+const authGuardAdmin = require('../middleware/authGuard');
+
 
 // create product api
 router.post('/create_product', productController.createProduct);
@@ -12,9 +14,9 @@ router.get('/get_products', productController.getAllProducts);
 router.get('/get_product/:id', productController.getSingleProduct);
 
 // update product API
-router.put('/update_product/:id', productController.updateProduct);
+router.put('/update_product/:id', authGuardAdmin , productController.updateProduct);
 
 // delete product API
-router.delete('/delete_product/:id',authGuard, productController.deleteProduct);
+router.delete('/delete_product/:id',authGuardAdmin, productController.deleteProduct);
 
 module.exports = router;
